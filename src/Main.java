@@ -14,7 +14,7 @@ import org.apache.commons.csv.CSVRecord;
 public class Main {
 	
 	public static final String csvFileName = "./res/csv/sample.csv";
-//	public static final String templateFileName = "./res/images/template.jpg";
+	public static final String templateFileName = "./res/images/template.jpg";
 	public static final int height = 100;
 	public static final int width = 100;
 
@@ -27,16 +27,13 @@ public class Main {
 			System.out.println(record.get("Spell Name") + "\t" + record.get("Spell Description"));
 		}
 		
-		BufferedImage img = new BufferedImage(height, width, BufferedImage.TYPE_INT_ARGB);
 		
-//		BufferedImage img = ImageIO.read(new File)
+		BufferedImage img = ImageIO.read(new File(templateFileName));
 		
 		Graphics2D g = img.createGraphics();
 		
 		g.setColor(Color.WHITE);
-		g.fillRect(0, 0, height, width);
-		g.setColor(Color.BLACK);
-		g.drawString("Hello", 5, 10);
+		g.drawString("Hello", 25, 10);
 		
 		ImageIO.write(img, "png", new File("./res/images/sample-" + cardCount+ ".png"));
 	}

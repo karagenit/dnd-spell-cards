@@ -7,6 +7,7 @@ import java.awt.image.ImageObserver;
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.Charset;
+import java.util.List;
 
 import javax.imageio.ImageIO;
 
@@ -38,8 +39,10 @@ public class Main {
 		CSVParser parser = CSVParser.parse(new File(csvFileName), Charset.defaultCharset(), CSVFormat.DEFAULT.withFirstRecordAsHeader());
 		
 		int cardCount = 1;
+		List<CSVRecord> records = parser.getRecords();
+		int total = records.size();
 		
-		for(CSVRecord record : parser) {
+		for(CSVRecord record : records) {
 			BufferedImage img = ImageIO.read(new File(templateFileName));
 						
 			Graphics2D g = img.createGraphics();
@@ -50,10 +53,10 @@ public class Main {
 			
 			ImageIO.write(img, "png", new File("./res/images/test-" + cardCount + ".png"));
 			
+			System.out.print("Processing... " + (int)(cardCount * 100 / total) + "%\r");
+			
 			cardCount++;
 		}	
-		
-		System.out.println("Done!");
 	}
 	
 	public static void writeImg(Graphics2D g, String type) throws IOException {

@@ -33,10 +33,6 @@ public class Main {
 	public static final String templateFileName = "./res/images/template-2.jpg";
 	public static final String abjurationFileName = "./res/images/abjuration.jpg";
 	public static final Font font = new Font("Times New Roman", Font.BOLD, 32);
-
-	public enum SpellType {
-		Abjuration
-	}
 	
 	public static void main(String[] args) throws IOException {
 		CSVParser parser = CSVParser.parse(new File(csvFileName), Charset.defaultCharset(), CSVFormat.DEFAULT.withFirstRecordAsHeader());
@@ -50,7 +46,7 @@ public class Main {
 			
 			writeTop(g, record.get("Spell Name"));
 			writeDesc(g, record.get("Spell Description"));
-			writeImg(g, SpellType.Abjuration);			
+			writeImg(g, "Abjuration");			
 			
 			ImageIO.write(img, "png", new File("./res/images/test-" + cardCount + ".png"));
 			
@@ -60,12 +56,12 @@ public class Main {
 		System.out.println("Done!");
 	}
 	
-	public static void writeImg(Graphics2D g, SpellType type) throws IOException {
+	public static void writeImg(Graphics2D g, String type) throws IOException {
 		
 		BufferedImage img;
 		
 		switch(type) {
-		case Abjuration:
+		case "Abjuration":
 			img = ImageIO.read(new File(abjurationFileName));
 			break;
 		default:

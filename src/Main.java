@@ -45,9 +45,7 @@ public class Main {
 		
 		for(CSVRecord record : parser) {
 			BufferedImage img = ImageIO.read(new File(templateFileName));
-			
-			//img.getr //TODO background color change
-			
+						
 			Graphics2D g = img.createGraphics();
 			
 			writeTop(g, record.get("Spell Name"));
@@ -111,5 +109,24 @@ public class Main {
 			}
 			
 		};
+	}
+	
+	public static void changeImageHue(BufferedImage img, float hue) {
+		for(int x = 0; x < img.getWidth(); x++) {
+			for(int y = 0; y < img.getHeight(); y++) {
+				
+				int rgb = img.getRGB(x, y);
+				int red = (rgb >> 16) & 0xFF;
+				int blue = (rgb >> 8) & 0xFF;
+				int green = (rgb) & 0xFF;
+				
+				float[] hsv = new float[3];
+				Color.RGBtoHSB(red, green, blue, hsv);
+				
+				if(hsv[0] != 0) hsv[0] = (float) 0.65;
+				
+				img.setRGB(x, y, Color.HSBtoRGB(hsv[0], hsv[1], hsv[2]));
+			}
+		}
 	}
 }
